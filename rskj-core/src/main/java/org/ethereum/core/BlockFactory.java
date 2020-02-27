@@ -90,13 +90,14 @@ public class BlockFactory {
             byte[] gasLimit, long gasUsed, long timestamp, byte[] extraData,
             byte[] bitcoinMergedMiningHeader, byte[] bitcoinMergedMiningMerkleProof,
             byte[] bitcoinMergedMiningCoinbaseTransaction, byte[] miningForkDetectionData,
-            byte[] minimumGasPrice, int uncleCount) {
+            byte[] minimumGasPrice, int uncleCount, byte[] ummRoot) {
         return newHeader(
                 parentHash, unclesHash, coinbase,
                 ByteUtils.clone(EMPTY_TRIE_HASH), null, ByteUtils.clone(EMPTY_TRIE_HASH),
                 logsBloom, difficulty, number, gasLimit, gasUsed, timestamp, extraData, Coin.ZERO,
                 bitcoinMergedMiningHeader, bitcoinMergedMiningMerkleProof,
-                bitcoinMergedMiningCoinbaseTransaction, miningForkDetectionData, minimumGasPrice, uncleCount
+                bitcoinMergedMiningCoinbaseTransaction, miningForkDetectionData, minimumGasPrice, uncleCount,
+                ummRoot
         );
     }
 
@@ -106,7 +107,7 @@ public class BlockFactory {
             byte[] gasLimit, long gasUsed, long timestamp, byte[] extraData,
             Coin paidFees, byte[] bitcoinMergedMiningHeader, byte[] bitcoinMergedMiningMerkleProof,
             byte[] bitcoinMergedMiningCoinbaseTransaction, byte[] mergedMiningForkDetectionData,
-            byte[] minimumGasPrice, int uncleCount) {
+            byte[] minimumGasPrice, int uncleCount, byte[] ummRoot) {
         boolean useRskip92Encoding = activationConfig.isActive(ConsensusRule.RSKIP92, number);
         boolean includeForkDetectionData = activationConfig.isActive(ConsensusRule.RSKIP110, number) &&
                 mergedMiningForkDetectionData.length > 0;
@@ -117,7 +118,7 @@ public class BlockFactory {
                 gasLimit, gasUsed, timestamp, extraData, paidFees,
                 bitcoinMergedMiningHeader, bitcoinMergedMiningMerkleProof, bitcoinMergedMiningCoinbaseTransaction,
                 mergedMiningForkDetectionData, RLP.parseSignedCoinNonNullZero(minimumGasPrice), uncleCount,
-                false, useRskip92Encoding, includeForkDetectionData
+                false, useRskip92Encoding, includeForkDetectionData, ummRoot
         );
     }
 
@@ -130,7 +131,7 @@ public class BlockFactory {
                 parentHash, unclesHash, coinbase, logsBloom, difficulty,
                 number, gasLimit, gasUsed, timestamp, extraData,
                 null, null, null, new byte[0],
-                minimumGasPrice, uncleCount
+                minimumGasPrice, uncleCount, null
         );
     }
 
@@ -233,7 +234,8 @@ public class BlockFactory {
                 number, glBytes, gasUsed, timestamp, extraData,
                 paidFees, bitcoinMergedMiningHeader, bitcoinMergedMiningMerkleProof,
                 bitcoinMergedMiningCoinbaseTransaction, new byte[0],
-                minimumGasPrice, uncleCount, sealed, useRskip92Encoding, includeForkDetectionData
+                minimumGasPrice, uncleCount, sealed, useRskip92Encoding, includeForkDetectionData,
+                null
         );
     }
 

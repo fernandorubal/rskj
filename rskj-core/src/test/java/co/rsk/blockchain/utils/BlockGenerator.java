@@ -154,7 +154,7 @@ public class BlockGenerator {
                         ByteUtils.clone(parent.getStateRoot()), EMPTY_TRIE_HASH, EMPTY_TRIE_HASH,
                         ByteUtils.clone(new Bloom().getData()), difficulty, parent.getNumber() + 1,
                         parent.getGasLimit(), parent.getGasUsed(), parent.getTimestamp() + ++count, EMPTY_BYTE_ARRAY,
-                        Coin.valueOf(fees), null, null, null, new byte[12], null, uncles.size()
+                        Coin.valueOf(fees), null, null, null, new byte[12], null, uncles.size(), null
                 ),
                 Collections.emptyList(),
                 uncles
@@ -176,7 +176,7 @@ public class BlockGenerator {
                         stateRoot, BlockHashesHelper.getTxTrieRoot(txs, isRskip126Enabled),
                         EMPTY_TRIE_HASH, logBloom.getData(), parent.getDifficulty().getBytes(), parent.getNumber() + 1,
                         parent.getGasLimit(), parent.getGasUsed(), parent.getTimestamp() + ++count,
-                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null, null, new byte[12], null, 0
+                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null, null, new byte[12], null, 0, null
                 ),
                 txs,
                 Collections.emptyList(),
@@ -222,12 +222,13 @@ public class BlockGenerator {
 
         byte[] unclesListHash = HashUtil.keccak256(BlockHeader.getUnclesEncodedEx(uncles));
 
-        BlockHeader newHeader = blockFactory.newHeader(parent.getHash().getBytes(),
+        BlockHeader newHeader = blockFactory.newHeader(
+                parent.getHash().getBytes(),
                 unclesListHash,
                 coinbase.getBytes(),
                 ByteUtils.clone(new Bloom().getData()),
                 new byte[]{1},
-                parent.getNumber()+1,
+                parent.getNumber() + 1,
                 gasLimit,
                 0,
                 parent.getTimestamp() + ++count,
@@ -235,11 +236,12 @@ public class BlockGenerator {
                 new byte[]{},
                 new byte[]{},
                 new byte[]{},
-                parent.getNumber()+1 > MiningConfig.REQUIRED_NUMBER_OF_BLOCKS_FOR_FORK_DETECTION_CALCULATION ?
+                parent.getNumber() + 1 > MiningConfig.REQUIRED_NUMBER_OF_BLOCKS_FOR_FORK_DETECTION_CALCULATION ?
                         new byte[12] :
                         new byte[0],
                 (minGasPrice != null) ? minGasPrice.toByteArray() : null,
-                uncles.size()
+                uncles.size(),
+                null
         );
 
         if (difficulty == 0) {
@@ -282,7 +284,8 @@ public class BlockGenerator {
                         EMPTY_TRIE_HASH, BlockHashesHelper.getTxTrieRoot(txs, isRskip126Enabled), EMPTY_TRIE_HASH,
                         logBloom.getData(), parent.getDifficulty().getBytes(), number,
                         parent.getGasLimit(), parent.getGasUsed(), parent.getTimestamp() + ++count,
-                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null, null, new byte[12], minimumGasPrice.getBytes(), 0
+                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null,
+                        null, new byte[12], minimumGasPrice.getBytes(), 0, null
                 ),
                 txs,
                 Collections.emptyList()
@@ -304,7 +307,8 @@ public class BlockGenerator {
                         EMPTY_TRIE_HASH, EMPTY_TRIE_HASH, EMPTY_TRIE_HASH,
                         logBloom.getData(), parent.getDifficulty().getBytes(), parent.getNumber() + 1,
                         parent.getGasLimit(), parent.getGasUsed(), parent.getTimestamp() + ++count,
-                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null, null, new byte[12], Coin.valueOf(10).getBytes(), 0
+                        EMPTY_BYTE_ARRAY, Coin.ZERO, null, null, null, new byte[12], Coin.valueOf(10).getBytes(), 0,
+                        null
                 ),
                 txs,
                 Collections.emptyList()

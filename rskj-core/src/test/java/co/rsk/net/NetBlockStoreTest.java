@@ -221,7 +221,8 @@ public class NetBlockStoreTest {
     @Test
     public void saveHeader() {
         NetBlockStore store = new NetBlockStore();
-        BlockHeader blockHeader = blockFactory.newHeader(new byte[]{},
+        BlockHeader blockHeader = blockFactory.newHeader(
+                new byte[]{},
                 new byte[]{},
                 TestUtils.randomAddress().getBytes(),
                 new Bloom().getData(),
@@ -236,7 +237,8 @@ public class NetBlockStoreTest {
                 new byte[]{},
                 new byte[]{},
                 new byte[]{0},
-                0
+                0,
+                null
         );
 
         store.saveHeader(blockHeader);
@@ -246,7 +248,8 @@ public class NetBlockStoreTest {
     @Test
     public void removeHeader() {
         NetBlockStore store = new NetBlockStore();
-        BlockHeader blockHeader = blockFactory.newHeader(new byte[]{},
+        BlockHeader blockHeader = blockFactory.newHeader(
+                new byte[]{},
                 new byte[]{},
                 TestUtils.randomAddress().getBytes(),
                 new Bloom().getData(),
@@ -261,7 +264,8 @@ public class NetBlockStoreTest {
                 new byte[]{},
                 new byte[]{},
                 new byte[]{0},
-                0
+                0,
+                null
         );
 
         store.saveHeader(blockHeader);
