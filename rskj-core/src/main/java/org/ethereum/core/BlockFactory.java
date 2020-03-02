@@ -134,7 +134,7 @@ public class BlockFactory {
                 parentHash, unclesHash, coinbase, logsBloom, difficulty,
                 number, gasLimit, gasUsed, timestamp, extraData,
                 null, null, null, new byte[0],
-                minimumGasPrice, uncleCount, null
+                minimumGasPrice, uncleCount, new byte[0]
         );
     }
 

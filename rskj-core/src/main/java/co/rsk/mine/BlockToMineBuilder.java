@@ -196,6 +196,10 @@ public class BlockToMineBuilder {
         byte[] forkDetectionData = forkDetectionDataCalculator.calculateWithBlockHeaders(mainchainHeaders);
 
         long blockNumber = newBlockParentHeader.getNumber() + 1;
+
+        // ummRoot can not be set to a value yet since the UMM contracts are not yet implemented
+        byte[] ummRoot = new byte[0];
+
         final BlockHeader newHeader = blockFactory.newHeader(
                 newBlockParentHeader.getHash().getBytes(),
                 unclesListHash,
@@ -219,7 +223,7 @@ public class BlockToMineBuilder {
                 forkDetectionData,
                 minimumGasPrice.getBytes(),
                 uncles.size(),
-                null
+                ummRoot
         );
         newHeader.setDifficulty(difficultyCalculator.calcDifficulty(newHeader, newBlockParentHeader));
         return newHeader;
